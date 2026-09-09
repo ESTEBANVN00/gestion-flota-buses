@@ -1,0 +1,24 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Gestión de Flota de Buses",
+    "version": "1.0.0",
+    "description": "Documentación de la API para el sistema de control de flota de buses"
+  },
+  "paths": {
+    "/api/buses": {
+      "get": {
+        "summary": "Obtener todos los buses",
+        "responses": {
+          "200": { "description": "Lista de buses obtenida correctamente" }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo bus",
+        "responses": {
+          "201": { "description": "Bus registrado exitosamente" }
+        }
+      }
+    }
+  }
+}
