@@ -8,6 +8,7 @@ import { ModelBus } from './src/data/models/ModelBus.js';
 import { ModelConductor } from './src/data/models/ModelConductor.js';
 import { ModelRuta } from './src/data/models/ModelRuta.js';
 import { ModelDespacho } from './src/data/models/ModelDespacho.js';
+import { ModelMantenimiento } from './src/data/models/ModelMantenimiento.js';
 import { setupRelaciones } from './src/data/models/Relaciones.js';
 
 // Importar Rutas
@@ -15,6 +16,7 @@ import { router_bus } from './src/presentation/routes/RouterBus.js';
 import { router_conductor } from './src/presentation/routes/RouterConductor.js';
 import { router_ruta } from './src/presentation/routes/RouterRuta.js';
 import { router_despacho } from './src/presentation/routes/RouterDespacho.js';
+import { router_mantenimiento } from './src/presentation/routes/RouterMantenimiento.js';
 
 const app = express();
 
@@ -31,6 +33,7 @@ app.use('/api', router_bus);
 app.use('/api', router_conductor);
 app.use('/api', router_ruta);
 app.use('/api', router_despacho);
+app.use('/api', router_mantenimiento);
 
 app.get('/', (req, res) => {
   res.json({ message: "API de Gestión de Flota de Buses activa" });
