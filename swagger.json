@@ -3,7 +3,7 @@
   "info": {
     "title": "API de Gestión de Flota de Buses",
     "version": "1.0.0",
-    "description": "Documentación interactiva de la API REST para el control de buses, conductores, rutas y despachos."
+    "description": "Documentación interactiva de la API REST para el control de buses, conductores, rutas, despachos y mantenimientos."
   },
   "servers": [
     {
@@ -142,6 +142,39 @@
         },
         "responses": {
           "201": { "description": "Despacho programado exitosamente" }
+        }
+      }
+    },
+    "/mantenimientos": {
+      "get": {
+        "summary": "Obtener todos los mantenimientos",
+        "tags": ["Mantenimientos"],
+        "responses": {
+          "200": { "description": "Lista de mantenimientos obtenida exitosamente" }
+        }
+      },
+      "post": {
+        "summary": "Registrar un mantenimiento (desactiva automáticamente el bus asignado)",
+        "tags": ["Mantenimientos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bus_id": { "type": "integer", "example": 1 },
+                  "tipo": { "type": "string", "example": "Preventivo" },
+                  "descripcion": { "type": "string", "example": "Cambio de aceite y revisión de frenos" },
+                  "costo": { "type": "number", "example": 250000 },
+                  "fecha": { "type": "string", "example": "2026-09-11" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Mantenimiento registrado y estado del bus actualizado a Inactivo" }
         }
       }
     }
