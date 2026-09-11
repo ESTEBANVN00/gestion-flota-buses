@@ -3,20 +3,145 @@
   "info": {
     "title": "API de Gestión de Flota de Buses",
     "version": "1.0.0",
-    "description": "Documentación de la API para el sistema de control de flota de buses"
+    "description": "Documentación interactiva de la API REST para el control de buses, conductores, rutas y despachos."
   },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor Local"
+    }
+  ],
   "paths": {
-    "/api/buses": {
+    "/buses": {
       "get": {
         "summary": "Obtener todos los buses",
+        "tags": ["Buses"],
         "responses": {
-          "200": { "description": "Lista de buses obtenida correctamente" }
+          "200": { "description": "Lista de buses obtenida exitosamente" }
         }
       },
       "post": {
         "summary": "Registrar un nuevo bus",
+        "tags": ["Buses"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": { "type": "string", "example": "AAA123" },
+                  "numero_int": { "type": "string", "example": "101" },
+                  "capacidad": { "type": "integer", "example": 40 },
+                  "modelo": { "type": "integer", "example": 2024 },
+                  "estado": { "type": "string", "example": "Activo" }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "201": { "description": "Bus registrado exitosamente" }
+          "201": { "description": "Bus creado exitosamente" }
+        }
+      }
+    },
+    "/conductores": {
+      "get": {
+        "summary": "Obtener todos los conductores",
+        "tags": ["Conductores"],
+        "responses": {
+          "200": { "description": "Lista de conductores obtenida exitosamente" }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo conductor",
+        "tags": ["Conductores"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cedula": { "type": "string", "example": "1020304050" },
+                  "nombre": { "type": "string", "example": "Carlos" },
+                  "apellido": { "type": "string", "example": "Pérez" },
+                  "telefono": { "type": "string", "example": "3001234567" },
+                  "licencia": { "type": "string", "example": "C2" },
+                  "estado": { "type": "string", "example": "Disponible" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Conductor creado exitosamente" }
+        }
+      }
+    },
+    "/rutas": {
+      "get": {
+        "summary": "Obtener todas las rutas",
+        "tags": ["Rutas"],
+        "responses": {
+          "200": { "description": "Lista de rutas obtenida exitosamente" }
+        }
+      },
+      "post": {
+        "summary": "Registrar una nueva ruta",
+        "tags": ["Rutas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "origen": { "type": "string", "example": "Terminal Norte" },
+                  "destino": { "type": "string", "example": "Rionegro" },
+                  "distancia_km": { "type": "number", "example": 45.5 },
+                  "duracion_estimada": { "type": "string", "example": "1 hora 15 mins" },
+                  "precio_pasaje": { "type": "number", "example": 12000 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Ruta creada exitosamente" }
+        }
+      }
+    },
+    "/despachos": {
+      "get": {
+        "summary": "Obtener todos los despachos (con bus, conductor y ruta anidados)",
+        "tags": ["Despachos"],
+        "responses": {
+          "200": { "description": "Lista de despachos relacionales obtenida exitosamente" }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva asignación de despacho",
+        "tags": ["Despachos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bus_id": { "type": "integer", "example": 1 },
+                  "conductor_id": { "type": "integer", "example": 1 },
+                  "ruta_id": { "type": "integer", "example": 1 },
+                  "fecha_salida": { "type": "string", "example": "2026-09-12T14:30:00Z" },
+                  "estado": { "type": "string", "example": "Programado" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Despacho programado exitosamente" }
         }
       }
     }
